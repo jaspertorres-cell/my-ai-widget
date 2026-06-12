@@ -14,6 +14,29 @@
       width: 100%;
       height: 100%;
       background-color: #EBEAE1;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    .header {
+      width: 100%;
+      padding: 10px 16px;
+      background: #3A3A38;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .logo span { color: #8EBEB1; }
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8EBEB1;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
     }
     ai-studio-widget {
       position: static !important;
@@ -25,43 +48,46 @@
     }
     .container {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: calc(100vh - 44px);
       width: 100%;
-      gap: 16px;
     }
-    .logo {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #3A3A38;
-      font-family: Arial, sans-serif;
-    }
-    .logo span { color: #04888A; }
-    body > *:not(.container) {
+    body > *:not(.header):not(.container):not(script) {
       position: static !important;
     }
   </style>
 </head>
 <body>
+  <div class="header">
+    <div class="logo">8<span>x</span>8<sup style="font-size:8px;vertical-align:super;">®</sup></div>
+    <div class="label">Smart Assist</div>
+  </div>
   <div class="container">
-    <div class="logo">8<span>x</span>8<sup style="font-size:11px;vertical-align:super;">®</sup></div>
     <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
   </div>
   <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
   <script>
-    const timer = setInterval(() => {
-      const widget = document.querySelector('ai-studio-widget');
-      if (!widget || !widget.shadowRoot) return;
-      const orb = widget.shadowRoot.querySelector('.orb-button');
+    var clickTimer = setInterval(function() {
+      var widget = document.querySelector('ai-studio-widget');
+      if (!widget) return;
+      var sr = widget.shadowRoot;
+      if (!sr) return;
+      var orb = sr.querySelector('.orb-button');
       if (orb) {
-        clearInterval(timer);
-        orb.click();
+        clearInterval(clickTimer);
+        setTimeout(function() {
+          orb.click();
+          setTimeout(function() {
+            var style = document.createElement('style');
+            style.id = 'panel-expand';
+            style.textContent = '.panel { width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; border-radius: 0 !important; box-shadow: none !important; position: static !important; }';
+            sr.appendChild(style);
+          }, 500);
+        }, 100);
       }
-    }, 200);
-    setTimeout(() => clearInterval(timer), 10000);
+    }, 300);
+    setTimeout(function() { clearInterval(clickTimer); }, 15000);
   </script>
 </body>
 </html>
