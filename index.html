@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8x8 Smart Assist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #EBEAE1;
+      font-family: 'Archivo', sans-serif;
+    }
+    .logo {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #3A3A38;
+      z-index: 10;
+      white-space: nowrap;
+    }
+    .logo span { color: #04888A; }
+
+    /* CSS-level override as backup */
+    ai-studio-widget {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      bottom: auto !important;
+      right: auto !important;
+      transform: translate(-50%, -50%) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">8<span>x</span>8<sup style="font-size:11px;vertical-align:super;">®</sup></div>
+
+  <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
+  <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
+
+  <script>
+    // Simply keep recentering every 200ms — no observers, no click listeners
+    setInterval(() => {
+      const widget = document.querySelector('ai-studio-widget');
+      if (!widget) return;
+      if (widget.style.bottom !== 'auto' || widget.style.right !== 'auto') {
+        widget.style.setProperty('position', 'fixed', 'important');
+        widget.style.setProperty('top', '50%', 'important');
+        widget.style.setProperty('left', '50%', 'important');
+        widget.style.setProperty('bottom', 'auto', 'important');
+        widget.style.setProperty('right', 'auto', 'important');
+        widget.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
+      }
+    }, 200);
+  </script>
+
+</body>
+</html>
