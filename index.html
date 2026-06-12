@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8x8 Smart Assist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #EBEAE1;
+      font-family: 'Archivo', sans-serif;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #3A3A38;
+    }
+    .logo span { color: #04888A; }
+
+    ai-studio-widget {
+      position: static !important;
+      display: block !important;
+    }
+
+    ai-studio-widget iframe,
+    ai-studio-widget > * {
+      position: static !important;
+    }
+
+    body > *:not(.page) {
+      position: static !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="logo">8<span>x</span>8<sup style="font-size:11px;vertical-align:super;">®</sup></div>
+    <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
+  </div>
+
+  <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
+
+  <script>
+    const timer = setInterval(() => {
+      const widget = document.querySelector('ai-studio-widget');
+      if (!widget || !widget.shadowRoot) return;
+      const orb = widget.shadowRoot.querySelector('.orb-button');
+      if (orb) {
+        clearInterval(timer);
+        orb.click();
+      }
+    }, 200);
+    setTimeout(() => clearInterval(timer), 10000);
+  </script>
+</body>
+</html>
