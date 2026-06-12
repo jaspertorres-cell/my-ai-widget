@@ -14,55 +14,30 @@
       width: 100%;
       height: 100%;
       background-color: #EBEAE1;
-      font-family: Arial, sans-serif;
       overflow: hidden;
-    }
-    .header {
-      width: 100%;
-      padding: 10px 16px;
-      background: #3A3A38;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo {
-      font-size: 20px;
-      font-weight: 900;
-      color: #ffffff;
-    }
-    .logo span { color: #8EBEB1; }
-    .label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #8EBEB1;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
     }
     ai-studio-widget {
       position: static !important;
       display: block !important;
+      width: 100% !important;
+      height: 100vh !important;
     }
     ai-studio-widget iframe,
     ai-studio-widget > * {
       position: static !important;
+      width: 100% !important;
+      height: 100% !important;
     }
     .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: calc(100vh - 44px);
       width: 100%;
+      height: 100vh;
     }
-    body > *:not(.header):not(.container):not(script) {
+    body > *:not(.container) {
       position: static !important;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="logo">8<span>x</span>8<sup style="font-size:8px;vertical-align:super;">®</sup></div>
-    <div class="label">Smart Assist</div>
-  </div>
   <div class="container">
     <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
   </div>
@@ -81,7 +56,7 @@
           setTimeout(function() {
             var style = document.createElement('style');
             style.id = 'panel-expand';
-            style.textContent = '.panel { width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; border-radius: 0 !important; box-shadow: none !important; position: static !important; }';
+            style.textContent = ':host { position: static !important; width: 100% !important; height: 100vh !important; } .panel { width: 100% !important; height: 100vh !important; max-width: 100% !important; max-height: 100% !important; border-radius: 0 !important; box-shadow: none !important; position: static !important; } .panel-header { border-radius: 0 !important; }';
             sr.appendChild(style);
           }, 500);
         }, 100);
