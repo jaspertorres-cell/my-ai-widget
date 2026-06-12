@@ -13,7 +13,6 @@
     html, body {
       width: 100%;
       height: 100%;
-      background-color: #EBEAE1;
       overflow: hidden;
     }
     ai-studio-widget {
@@ -28,19 +27,13 @@
       width: 100% !important;
       height: 100% !important;
     }
-    .container {
-      width: 100%;
-      height: 100vh;
-    }
-    body > *:not(.container) {
+    body > *:not(script) {
       position: static !important;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
-  </div>
+  <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
   <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
   <script>
     var clickTimer = setInterval(function() {
