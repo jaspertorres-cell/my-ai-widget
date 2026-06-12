@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8x8 Smart Assist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #EBEAE1;
+      font-family: 'Archivo', sans-serif;
+    }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 16px;
+      background: #3A3A38;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #ffffff;
+    }
+    .logo span { color: #8EBEB1; }
+    .header-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: #8EBEB1;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .chat-area {
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    ai-studio-widget {
+      position: static !important;
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    ai-studio-widget > * {
+      position: static !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    body > *:not(.wrapper) {
+      position: static !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="logo">8<span>x</span>8<sup style="font-size:9px;vertical-align:super;">®</sup></div>
+      <div class="header-label">Smart Assist</div>
+    </div>
+    <div class="chat-area">
+      <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
+    </div>
+  </div>
+
+  <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
+
+  <script>
+    const PANEL_STYLE = `
+      :host {
+        position: static !important;
+        width: 100% !important;
+        height: 100% !important;
+        bottom: auto !important;
+        right: auto !important;
+      }
+      .panel {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        position: static !important;
+        bottom: auto !important;
+        right: auto !important;
+      }
+      .panel-header {
+        border-radius: 0 !important;
+      }
+    `;
+
+    function injectPanelStyle(sr) {
+      const existing = sr.getElementById('expand-style');
+      if (existing) existing.remove();
+      const style = document.createElement('style');
+      style.id = 'expand-style';
+      style.textContent = PANEL_STYLE;
+      sr.appendChild(style);
+    }
+
+    function clickOrb(sr) {
+      const orb = sr.querySelector('.orb-button');
+      if (orb) {
+        orb.click();
+        return true;
+      }
+      return false;
+    }
+
+    // Keep trying until orb is found and clicked — works on slow connections
+    let orbClicked = false;
+    const initTimer = setInterval(() => {
+      const widget = document.querySelector('ai-studio-widget');
+      if (!widget || !widget.shadowRoot) return;
+      const sr = widget.shadowRoot;
+
+      // Click orb once
+      if (!orbClicked) {
+        orbClicked = clickOrb(sr);
+      }
+
+      // Inject style whenever panel exists
+      if (sr.querySelector('.panel')) {
+        injectPanelStyle(sr);
+      }
+
+    }, 200);
+
+    // Stop polling after 15 seconds
+    setTimeout(() => clearInterval(initTimer), 15000);
+
+    // Also watch for panel appearing after close/reopen
+    const widgetObserver = new MutationObserver(() => {
+      const widget = document.querySelector('ai-studio-widget');
+      if (!widget || !widget.shadowRoot) return;
+      const sr = widget.shadowRoot;
+      if (sr.querySelector('.panel')) {
+        injectPanelStyle(sr);
+      }
+    });
+
+    // Start observing once widget exists
+    const observerTimer = setInterval(() => {
+      const widget = document.querySelector('ai-studio-widget');
+      if (widget && widget.shadowRoot) {
+        clearInterval(observerTimer);
+        widgetObserver.observe(widget.shadowRoot, { childList: true, subtree: false });
+      }
+    }, 200);
+  </script>
+</body>
+</html>
