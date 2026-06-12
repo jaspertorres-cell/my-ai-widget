@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8x8 Smart Assist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #EBEAE1;
+      font-family: 'Archivo', sans-serif;
+    }
+
+    .header {
+      width: 100%;
+      padding: 12px 16px;
+      background: #3A3A38;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #ffffff;
+    }
+    .logo span { color: #8EBEB1; }
+
+    .header-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: #8EBEB1;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .chat-area {
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Force widget to fill the chat area completely */
+    ai-studio-widget {
+      position: static !important;
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    ai-studio-widget iframe,
+    ai-studio-widget > * {
+      position: static !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    body > *:not(.wrapper) {
+      position: static !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <div class="header">
+      <div class="logo">8<span>x</span>8<sup style="font-size:9px;vertical-align:super;">®</sup></div>
+      <div class="header-label">Smart Assist</div>
+    </div>
+
+    <div class="chat-area">
+      <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
+    </div>
+
+  </div>
+
+  <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
+</body>
+</html>
