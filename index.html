@@ -19,7 +19,6 @@
       background: #3A3A38;
       display: flex;
       align-items: center;
-      gap: 10px;
       position: relative;
       z-index: 99999;
     }
@@ -29,13 +28,6 @@
       color: #fff;
     }
     #smartheader .logo span { color: #8EBEB1; }
-    #smartheader .label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #8EBEB1;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
     ai-studio-widget {
       position: static !important;
       display: block !important;
@@ -49,14 +41,12 @@
 <body>
   <div id="smartheader">
     <div class="logo">8<span>x</span>8<sup style="font-size:8px;vertical-align:super;">®</sup></div>
-    <div class="label">Smart Assist</div>
   </div>
   <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
   <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
   <script>
     var PANEL_CSS = ':host{position:static!important;width:100%!important;height:calc(100vh - 44px)!important}.panel{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;border-radius:0!important;box-shadow:none!important;position:static!important}.panel-header{border-radius:0!important}';
     var orbClicked = false;
-    var styleInjected = false;
 
     setInterval(function() {
       var widget = document.querySelector('ai-studio-widget');
@@ -64,7 +54,6 @@
       var sr = widget.shadowRoot;
       if (!sr) return;
 
-      // Inject style FIRST — before any click
       if (!sr.getElementById('pe')) {
         var s = document.createElement('style');
         s.id = 'pe';
@@ -72,7 +61,6 @@
         sr.appendChild(s);
       }
 
-      // Then click orb
       if (!orbClicked) {
         var orb = sr.querySelector('.orb-button');
         if (orb) {
