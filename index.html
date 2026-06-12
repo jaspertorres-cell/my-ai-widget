@@ -5,97 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>8x8 Smart Assist</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
       width: 100%;
       height: 100%;
+      background-color: #EBEAE1;
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
-    .header {
+    #smartheader {
       width: 100%;
       padding: 10px 16px;
       background: #3A3A38;
       display: flex;
       align-items: center;
       gap: 10px;
+      position: relative;
+      z-index: 99999;
     }
-    .logo {
+    #smartheader .logo {
       font-size: 20px;
       font-weight: 900;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
+      color: #fff;
     }
-    .logo span { color: #8EBEB1; }
-    .label {
+    #smartheader .logo span { color: #8EBEB1; }
+    #smartheader .label {
       font-size: 11px;
       font-weight: 600;
       color: #8EBEB1;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      font-family: Arial, sans-serif;
     }
     ai-studio-widget {
       position: static !important;
       display: block !important;
-      width: 100% !important;
-      height: calc(100vh - 44px) !important;
     }
     ai-studio-widget iframe,
     ai-studio-widget > * {
-      position: static !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-    body > *:not(.header):not(script) {
       position: static !important;
     }
   </style>
 </head>
 <body>
-  <div class="header">
+  <div id="smartheader">
     <div class="logo">8<span>x</span>8<sup style="font-size:8px;vertical-align:super;">®</sup></div>
     <div class="label">Smart Assist</div>
   </div>
   <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
   <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
   <script>
-    var PANEL_CSS = ':host { position: static !important; width: 100% !important; height: calc(100vh - 44px) !important; } .panel { width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; border-radius: 0 !important; box-shadow: none !important; position: static !important; } .panel-header { border-radius: 0 !important; }';
+    var orbClicked = false;
 
-    function injectStyle(sr) {
-      if (!sr.getElementById('panel-expand')) {
-        var style = document.createElement('style');
-        style.id = 'panel-expand';
-        style.textContent = PANEL_CSS;
-        sr.appendChild(style);
-      }
-    }
-
-    var clickTimer = setInterval(function() {
+    setInterval(function() {
       var widget = document.querySelector('ai-studio-widget');
       if (!widget) return;
       var sr = widget.shadowRoot;
       if (!sr) return;
-      var orb = sr.querySelector('.orb-button');
-      if (orb) {
-        clearInterval(clickTimer);
-        setTimeout(function() {
-          orb.click();
-          setTimeout(function() { injectStyle(sr); }, 500);
-        }, 100);
 
-        // Watch for panel reappearing on close/reopen
-        new MutationObserver(function() {
-          if (sr.querySelector('.panel')) {
-            injectStyle(sr);
-          }
-        }).observe(sr, { childList: true });
+      // Auto-click orb once
+      if (!orbClicked) {
+        var orb = sr.querySelector('.orb-button');
+        if (orb) {
+          orb.click();
+          orbClicked = true;
+        }
       }
-    }, 300);
-    setTimeout(function() { clearInterval(clickTimer); }, 15000);
+
+      // Keep panel expanded whenever it exists
+      var panel = sr.querySelector('.panel');
+      if (panel && !sr.getElementById('pe')) {
+        var s = document.createElement('style');
+        s.id = 'pe';
+        s.textContent = ':host{position:static!important;width:100%!important;height:calc(100vh - 44px)!important}.panel{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;border-radius:0!important;box-shadow:none!important;position:static!important}.panel-header{border-radius:0!important}';
+        sr.appendChild(s);
+      }
+    }, 500);
   </script>
 </body>
 </html>
