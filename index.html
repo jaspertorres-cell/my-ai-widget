@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8x8</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #EBEAE1;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    #smartheader {
+      width: 100%;
+      padding: 10px 16px;
+      background: #3A3A38;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 99999;
+    }
+    #smartheader .logo {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+    }
+    #smartheader .logo span { color: #8EBEB1; }
+    .chat-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 44px);
+      width: 100%;
+    }
+    ai-studio-widget {
+      position: static !important;
+      display: block !important;
+    }
+    ai-studio-widget iframe,
+    ai-studio-widget > * {
+      position: static !important;
+    }
+    body > *:not(#smartheader):not(.chat-area):not(script) {
+      position: static !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="smartheader">
+    <div class="logo">8<span>x</span>8<sup style="font-size:8px;vertical-align:super;">®</sup></div>
+  </div>
+  <div class="chat-area">
+    <ai-studio-widget widget-id="wgt_teal_701dc7e0"></ai-studio-widget>
+  </div>
+  <script src="https://widget.8x8.studio/v1/ai-studio-widget.js" async></script>
+  <script>
+    var PANEL_CSS = ':host{position:static!important;width:clamp(400px,95vw,700px)!important;height:calc(100vh - 60px)!important}.panel{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;border-radius:12px!important;box-shadow:0 8px 40px rgba(0,0,0,0.15)!important;position:static!important}.panel-header{border-radius:12px 12px 0 0!important}.icon-btn{display:none!important}';
+    var orbClicked = false;
+
+    setInterval(function() {
+      var widget = document.querySelector('ai-studio-widget');
+      if (!widget) return;
+      var sr = widget.shadowRoot;
+      if (!sr) return;
+
+      if (!sr.getElementById('pe')) {
+        var s = document.createElement('style');
+        s.id = 'pe';
+        s.textContent = PANEL_CSS;
+        sr.appendChild(s);
+      }
+
+      if (!orbClicked) {
+        var orb = sr.querySelector('.orb-button');
+        if (orb) {
+          orb.click();
+          orbClicked = true;
+        }
+      }
+    }, 500);
+  </script>
+</body>
+</html>
